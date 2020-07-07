@@ -1,6 +1,7 @@
 import numpy as np
 import csv
 import datetime
+import pytz
 
 
 def import_WS(CSV_file):
@@ -19,6 +20,8 @@ def import_WS(CSV_file):
 	time_range = []
 	solar_range = []
 
+	TZ = pytz.timezone('Asia/Singapore')
+
 	for i in range(0,len(d_data)):
 		date_item = d_data[i][0]
 		DD = int(date_item[0:2])
@@ -33,7 +36,7 @@ def import_WS(CSV_file):
 		SEC = int(time_item[6:8])
 		
 
-		sw = datetime.datetime(YY,MM,DD,HH,MIN,SEC)
+		sw = datetime.datetime(YY,MM,DD,HH,MIN,SEC,tzinfo=TZ)
 		time_range.append(sw)
 
 		solar_range.append(d_data[i][9])
@@ -79,8 +82,9 @@ def import_WS_w_rain(CSV_file):
 		MIN = int(time_item[3:5])
 		SEC = int(time_item[6:8])
 		
+		TZ = pytz.timezone('Asia/Singapore')
 
-		sw = datetime.datetime(YY,MM,DD,HH,MIN,SEC)
+		sw = datetime.datetime(YY,MM,DD,HH,MIN,SEC,tzinfo=TZ)
 		time_range.append(sw)
 
 		solar_range.append(d_data[i][9])

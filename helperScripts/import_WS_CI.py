@@ -1,6 +1,7 @@
 import numpy as np
 import csv
 import datetime
+import pytz
 from pysolar.solar import *
 from SG_solarmodel import *
 
@@ -36,15 +37,14 @@ def import_WS_CI(CSV_file):
 		MM = int(date_item[3:5])
 		YY = int(date_item[6:10])
 		
-
+		TZ = pytz.timezone('Asia/Singapore')
 		time_item = d_data[i][1]
 		
 		HH = int(time_item[0:2])
 		MIN = int(time_item[3:5])
 		SEC = int(time_item[6:8])
 		
-
-		sw = datetime.datetime(YY,MM,DD,HH,MIN,SEC)
+		sw = datetime.datetime(YY,MM,DD,HH,MIN,SEC, tzinfo=TZ)
 		datetime_range.append(sw)
 
 
@@ -56,7 +56,7 @@ def import_WS_CI(CSV_file):
 		rainfall_range.append(d_data[i][8])
 		
 		
-		date_part = datetime.datetime(YY, MM, DD, HH, MIN, SEC)
+		date_part = datetime.datetime(YY, MM, DD, HH, MIN, SEC, tzinfo=TZ)
 
 		clear_sky_rad = SG_model(date_part)
 		if (clear_sky_rad==0):

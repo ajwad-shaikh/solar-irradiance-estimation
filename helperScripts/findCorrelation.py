@@ -6,6 +6,7 @@ from sun_positions_day_files import *
 from import_WS import *
 from nearest import *
 from SG_solarmodel import *
+import pytz
 
 def findCorrelation(crop_dim,dt,date_now,selected_files,unik_dates,time_range,solar_range):
 
@@ -65,6 +66,7 @@ def findCorrelation(crop_dim,dt,date_now,selected_files,unik_dates,time_range,so
 
     time_datapoints = []
 
+    TZ = pytz.timezone('Asia/Singapore')
 
     for i in range(0,len(img_date)):
         YY = int(img_date[i][0:4])
@@ -74,7 +76,7 @@ def findCorrelation(crop_dim,dt,date_now,selected_files,unik_dates,time_range,so
         MM = int(img_time[i][3:5])
         SS = int(img_time[i][6:8])
 
-        sw = datetime.datetime(YY,MON,DD,HH,MM,SS)
+        sw = datetime.datetime(YY,MON,DD,HH,MM,SS,tzinfo=TZ)
 
         time_datapoints.append(sw)
 
